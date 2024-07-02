@@ -1,17 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+
 import './Header.css';
 
-const Header = () => {
+const Header = ({ scrollToFeed, scrollToStock, activeSection }) => {
   return (
-    <header className="header">
+    <header className="header sticky">
       <h1>Welcome to Invest-igator!</h1>
       <div className="header-icons">
-        <Link className="icon-spacing" to="/" >🏠</Link>
-        <Link className="icon-spacing" to="/portfolio">✉️</Link>
+        <div className={`icon-spacing ${activeSection === 'feed' ? 'active' : ''}`} onClick={scrollToFeed}>
+          <FontAwesomeIcon icon={faHome} /> Feed
+        </div>
+        <div className={`icon-spacing ${activeSection === 'stock' ? 'active' : ''}`} onClick={scrollToStock}>
+          <FontAwesomeIcon icon={faEnvelope} /> Stock
+        </div>
       </div>
     </header>
   );
-}
+};
 
 export default Header;
