@@ -1,11 +1,15 @@
 .sidebar {
+  width: 20vw; 
+  top: 0.2vh;
   flex: 1;
   padding: 2vh; 
   margin-left: 2vw; 
   border: 0.1vw solid #dbdbdb; 
   border-radius: 0.3vw;
   margin-bottom: 2vh; 
-  background-color: rgb(107, 104, 104);
+  background-color: rgb(107, 104, 104);  
+  align-self: flex-start;
+
 }
 
 .user-profile {
