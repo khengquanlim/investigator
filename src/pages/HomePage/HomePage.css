@@ -1,0 +1,18 @@
+.homepage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #dbdbdb;
+  }
+  
+  .homepage-content {
+    display: flex;
+    width: 100%;
+    max-width: 935px;
+  }
+  
+  .stock-content {
+    display: flex;
+    width: 100%;
+    max-width: 935px;
+  }

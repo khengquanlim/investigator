@@ -1,0 +1,37 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #191919;
+  margin-bottom: 2%;
+  background-color: #333; 
+  color: #fff;
+  width: 100%;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.search-input {
+  padding: 5px;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+}
+
+.header-icons {
+  font-size: 1.5rem; 
+}
+
+.icon-spacing {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.icon-spacing:hover {
+  color: #ccc;
+}

@@ -1,0 +1,11 @@
+.feedpage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .feedpage-content {
+    display: flex;
+    width: 100%;
+    max-width: 935px;
+  }
