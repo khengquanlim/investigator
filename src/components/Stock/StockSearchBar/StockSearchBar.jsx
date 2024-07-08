@@ -1,4 +1,5 @@
 import React, { useState} from 'react';
+import AutoCompleteSuggestion from './AutoCompleteSuggestion/AutoCompleteSuggestion';
 import { fetchStockSymbol } from '../../../services/StockService';
 
 const StockSearchBar = ({ onConfirm }) => {
@@ -13,6 +14,11 @@ const StockSearchBar = ({ onConfirm }) => {
     }
   };
 
+  const handleSelectSuggestion = (symbol) => {
+    setTextInput(symbol);
+    handleSearch();
+  };
+
   return (
     <div className="search-bar">
       <input
@@ -22,6 +28,7 @@ const StockSearchBar = ({ onConfirm }) => {
         placeholder="Enter stock symbol"
       />
       <button onClick={handleSearch}>Search</button>
+      {textInput && <AutoCompleteSuggestion query={textInput} onSelect={handleSelectSuggestion} />}
     </div>
   );
 };

@@ -4,9 +4,10 @@ const API_KEY = 'process.env.API_KEY';
 const API_KEY_BACKUP = 'process.env.API_KEY_BACKUP';
 const BASE_URL = 'https://www.alphavantage.co/query';
 
+const searchAlphaVantageURL = `${BASE_URL}/query`;
 export const fetchStockValueData = async (symbol) => {
   try {
-    const response = await axios.get(`${BASE_URL}/query`, {
+    const response = await axios.get(searchAlphaVantageURL, {
       params: {
         function: 'TIME_SERIES_DAILY',
         symbol: symbol,
@@ -21,13 +22,12 @@ export const fetchStockValueData = async (symbol) => {
 };
 
 export const fetchStockSymbol = async (textInput) => {
-  const searchURL = `${BASE_URL}/query`;
   try {
-    const response = await axios.get(searchURL, {
+    const response = await axios.get(searchAlphaVantageURL, {
       params: {
         function: 'SYMBOL_SEARCH',
-        keywords: textInput,
-        apikey: API_KEY_BACKUP,
+        keywords: "tesco",
+        apikey: "demo",
       },
     });
     if (response.data && response.data.bestMatches && response.data.bestMatches.length > 0) {
@@ -40,4 +40,20 @@ export const fetchStockSymbol = async (textInput) => {
     console.error('Error fetching stock symbol:', error);
     throw error;
   }
-};
+}
+
+export const fetchStockSuggestions = async (query) => {
+  try {
+    const response = await axios.get(searchAlphaVantageURL, {
+      params: {
+        function: 'SYMBOL_SEARCH',
+        keywords: "TESCO",
+        apikey: "demo",
+      },
+    });
+    const matches = response.data.bestMatches.slice(0, 10);
+    return matches;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
