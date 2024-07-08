@@ -15,17 +15,13 @@
 
 .header h1 {
   margin: 0;
+  margin-left: 2%;
   font-size: 1.5rem;
-}
-
-.search-input {
-  padding: 5px;
-  border: 1px solid #dbdbdb;
-  border-radius: 3px;
 }
 
 .header-icons {
   display: flex;
+  margin-left: 0.15vw;
   justify-content: flex-end; 
   gap: 0.1vw; 
 }
@@ -33,8 +29,7 @@
 .icon-spacing {
   display: flex;
   align-items: center;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-right: 0.15vw;
   text-decoration: none;
   color: #fff;
   cursor: pointer;
@@ -42,4 +37,8 @@
 
 .icon-spacing:hover {
   color: #ccc;
+}
+
+.icon {
+  margin-right: 0.25vw;
 }
