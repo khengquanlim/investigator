@@ -10,10 +10,10 @@ const Header = ({ scrollToFeed, scrollToStock, activeSection }) => {
       <h1>Welcome to Invest-igator!</h1>
       <div className="header-icons">
         <div className={`icon-spacing ${activeSection === 'feed' ? 'active' : ''}`} onClick={scrollToFeed}>
-          <FontAwesomeIcon icon={faHome} /> Feed
+          <FontAwesomeIcon icon={faHome} className="feed icon"/> Feed
         </div>
         <div className={`icon-spacing ${activeSection === 'stock' ? 'active' : ''}`} onClick={scrollToStock}>
-          <FontAwesomeIcon icon={faEnvelope} /> Stock
+          <FontAwesomeIcon icon={faEnvelope} className="stock icon"/> Stock
         </div>
       </div>
     </header>
