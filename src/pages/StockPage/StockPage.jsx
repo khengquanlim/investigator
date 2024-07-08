@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import StockSearchBar from '../../components/Stock/StockSearchBar/StockSearchBar';
-import StockData from '../../components/Stock/StockData/StockData';
+import StockSearchBar from '../StockSearchBar/StockSearchBar';
+import StockData from '../StockData/StockData';
 
 const StockPage = () => {
     const [selectedSymbol, setSelectedSymbol] = useState(''); 

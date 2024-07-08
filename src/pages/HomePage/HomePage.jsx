@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Header from '../../components/Header/Header.jsx';
 import Feed from '../../components/Feed/Feed.jsx';
 import Sidebar from '../../components/Sidebar/Sidebar.jsx';
-import StockPage from '../../components/Stock/StockPage/StockPage.jsx';
+import StockPage from '../StockPage/StockPage.jsx';
 import './HomePage.css'; 
 
 const HomePage = () => {
