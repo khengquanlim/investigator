@@ -30,9 +30,12 @@ export const fetchStockSymbol = async (textInput) => {
         apikey: "demo",
       },
     });
+    console.log("What is the response.data --- " , response.data );
+    console.log("What is the response.data --- " , response.data.bestMatches[0] );
     if (response.data && response.data.bestMatches && response.data.bestMatches.length > 0) {
-      const symbol = response.data.bestMatches[0]['1. symbol'];
-      return symbol;
+      const stockSymbol = response.data.bestMatches[0]['1. symbol'];
+      const stockName = response.data.bestMatches[0]['2. name'];
+      return {stockName, stockSymbol};
     } else {
       throw new Error('No matching symbols found.');
     }

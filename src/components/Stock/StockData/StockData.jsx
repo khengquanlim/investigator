@@ -7,8 +7,9 @@ import './StockData.css';
 
 Chart.register(...registerables);
 
-const StockData = ({ symbol }) => {
+const StockData = ({ retrievedStock }) => {
   const [chartData, setChartData] = useState(null);
+  const [companyName, setCompanyName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -31,12 +32,14 @@ const StockData = ({ symbol }) => {
   
   useEffect(() => {
     const getData = async () => {
-      if (!symbol) return;
+      if (!retrievedStock) return;
 
       setLoading(true);
       setError(null);
       try {
-        const data = await fetchStockValueData(symbol);
+        console.log("Is there anything under retrievedStock.stockSymbol  - ", retrievedStock.stockSymbol)
+        const data = await fetchStockValueData(retrievedStock.stockSymbol);
+        console.log("Is there anything under data  - ", data)
         const timeSeries = data['Time Series (Daily)'];
         
         if (timeSeries) {
@@ -74,7 +77,7 @@ const StockData = ({ symbol }) => {
     };
 
     getData();
-  }, [symbol]);
+  }, [retrievedStock]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -90,7 +93,7 @@ const StockData = ({ symbol }) => {
       {error && <p>Error: {error}</p>}
       {chartData && (
       <div>
-        <h2>{symbol}</h2>
+        <h2>{retrievedStock.stockName}, {retrievedStock.stockSymbol}</h2>
         <div className="chart-container">
         <Line 
           data={chartData}

@@ -7,15 +7,15 @@ const StockSearchBar = ({ onConfirm }) => {
 
   const handleSearch = async () => {
     try {
-      const symbol = await fetchStockSymbol(textInput);
-      onConfirm(symbol); 
+      const retrievedStock = await fetchStockSymbol(textInput);
+      onConfirm(retrievedStock); 
     } catch (error) {
-      console.error('Error fetching stock symbol:', error);
+      console.error('Error fetching retrievedStock:', error);
     }
   };
 
-  const handleSelectSuggestion = (symbol) => {
-    setTextInput(symbol);
+  const handleSelectSuggestion = (retrievedStock) => {
+    setTextInput(retrievedStock);
     handleSearch();
   };
 
@@ -28,7 +28,7 @@ const StockSearchBar = ({ onConfirm }) => {
         placeholder="Enter stock symbol"
       />
       <button onClick={handleSearch}>Search</button>
-      {textInput && <AutoCompleteSuggestion query={textInput} onSelect={handleSelectSuggestion} />}
+      {/* {textInput && <AutoCompleteSuggestion query={textInput} onSelect={handleSelectSuggestion} />} */}
     </div>
   );
 };
