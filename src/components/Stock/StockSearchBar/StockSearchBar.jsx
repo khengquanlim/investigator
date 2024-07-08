@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { fetchStockSymbol } from '../../../services/StockService';
 
 const StockSearchBar = ({ onConfirm }) => {
@@ -12,7 +12,6 @@ const StockSearchBar = ({ onConfirm }) => {
       console.error('Error fetching stock symbol:', error);
     }
   };
-
 
   return (
     <div className="search-bar">
