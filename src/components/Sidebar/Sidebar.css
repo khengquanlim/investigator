@@ -1,22 +1,37 @@
 .sidebar {
-    flex: 1;
-    padding: 20px;
-    margin-left: 20px;
-    border: 1px solid #dbdbdb;
-    border-radius: 3px;
-    margin-bottom: 20px;
-    background-color: rgb(107, 104, 104);
-  }
+  width: 20vw; 
+  top: 0.2vh;
+  flex: 1;
+  padding: 2vh; 
+  margin-left: 2vw; 
+  border: 0.1vw solid #dbdbdb; 
+  border-radius: 0.3vw;
+  margin-bottom: 2vh; 
+  background-color: rgb(107, 104, 104);  
+  align-self: flex-start;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+}
   
-  .user-profile {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .profile-image {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-  }
+.profile-image {
+  border-radius: 50%;
+  width: 7vw;
+  height: 7vw;
+  margin-right: 1vw; 
+}
+
+.user-info h3, .user-info p {
+  margin: 0;
+  color: white;
+}
+
+.user-info h3 {
+  font-size: 1.2vw;
+}
+
+.user-info p {
+  font-size: 1vw;
+}

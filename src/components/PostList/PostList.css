@@ -1,13 +1,15 @@
 .post {
-  border: 1px solid #dbdbdb;
-  border-radius: 3px;
-  margin-bottom: 20px;
+  border: 0.1vw solid #dbdbdb;
+  border-radius: 0.3vw 0.3vw 0.3vw 0.3vw;
+  margin-bottom: 2vh;
   background-color: rgb(107, 104, 104);
+  padding-left: 1vw;
+  color: white;
 }
 
 .post-header {
-  padding: 10px;
-  border-bottom: 1px solid #dbdbdb;
+  padding: 1vh 1vw;
+  border-bottom: 0.1vw solid #dbdbdb;
 }
 
 .post-image {
@@ -15,5 +17,5 @@
 }
 
 .post-caption {
-  padding: 10px;
+  padding: 1vh 1vw;
 }

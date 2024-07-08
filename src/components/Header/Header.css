@@ -1,4 +1,7 @@
 .header {
+  position: sticky;
+  z-index: 1000;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,21 +15,21 @@
 
 .header h1 {
   margin: 0;
+  margin-left: 2%;
   font-size: 1.5rem;
 }
 
-.search-input {
-  padding: 5px;
-  border: 1px solid #dbdbdb;
-  border-radius: 3px;
-}
-
 .header-icons {
-  font-size: 1.5rem; 
+  display: flex;
+  margin-left: 0.15vw;
+  justify-content: flex-end; 
+  gap: 0.1vw; 
 }
 
 .icon-spacing {
-  margin-left: 15px;
+  display: flex;
+  align-items: center;
+  margin-right: 0.15vw;
   text-decoration: none;
   color: #fff;
   cursor: pointer;
@@ -34,4 +37,8 @@
 
 .icon-spacing:hover {
   color: #ccc;
+}
+
+.icon {
+  margin-right: 0.25vw;
 }
