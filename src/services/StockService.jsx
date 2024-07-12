@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { MockStockData } from '../data/MockStockData';
 const API_KEY = 'process.env.API_KEY';
 const API_KEY_BACKUP = 'process.env.API_KEY_BACKUP';
 const BASE_URL = 'https://www.alphavantage.co/query';
@@ -14,10 +14,15 @@ export const fetchStockValueData = async (symbol) => {
         apikey: API_KEY,
       },
     });
-        return response.data;
+
+    if('Information' in response.data) {
+      return MockStockData;
+    }
+      return response.data;
     } catch (error) {
-        console.error('Error fetching stock data:', error.response ? error.response.data : error.message);
-        throw error;
+      console.error('Error at fetchStockValueData:', error.response ? error.response.data : error.message);
+      // throw error;
+      return MockStockData;
     }
 };
 
@@ -30,8 +35,6 @@ export const fetchStockSymbol = async (textInput) => {
         apikey: API_KEY,
       },
     });
-    console.log("What is the response.data --- " , response.data );
-    console.log("What is the response.data --- " , response.data.bestMatches[0] );
     if (response.data && response.data.bestMatches && response.data.bestMatches.length > 0) {
       const stockSymbol = response.data.bestMatches[0]['1. symbol'];
       const stockName = response.data.bestMatches[0]['2. name'];
@@ -40,8 +43,10 @@ export const fetchStockSymbol = async (textInput) => {
       throw new Error('No matching symbols found.');
     }
   } catch (error) {
-    console.error('Error fetching stock symbol:', error);
-    throw error;
+    const stockSymbol = 'IBM';
+    const stockName = 'IBM';
+    return {stockName, stockSymbol};
+    // throw error;
   }
 }
 

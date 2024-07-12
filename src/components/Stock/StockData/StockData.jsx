@@ -8,7 +8,6 @@ import './StockData.css';
 Chart.register(...registerables);
 
 const StockData = ({ retrievedStocks }) => {
-  const [companyName, setCompanyName] = useState('');
   const [chartData, setChartData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -38,7 +37,8 @@ const StockData = ({ retrievedStocks }) => {
       setError(null);
       try {
         const data = await fetchStockValueData(retrievedStocks.stockSymbol);
-        const timeSeries = data['Time Series (Daily)'];
+        const timeSeries = data[0]['Time Series (Daily)'];
+        // const timeSeries = data['Time Series (Daily)'];
         
         if (timeSeries) {
           const labels = Object.keys(timeSeries).reverse();
