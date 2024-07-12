@@ -7,9 +7,9 @@ import './StockData.css';
 
 Chart.register(...registerables);
 
-const StockData = ({ retrievedStock }) => {
-  const [chartData, setChartData] = useState(null);
+const StockData = ({ retrievedStocks }) => {
   const [companyName, setCompanyName] = useState('');
+  const [chartData, setChartData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -32,14 +32,12 @@ const StockData = ({ retrievedStock }) => {
   
   useEffect(() => {
     const getData = async () => {
-      if (!retrievedStock) return;
+      if (!retrievedStocks) return;
 
       setLoading(true);
       setError(null);
       try {
-        console.log("Is there anything under retrievedStock.stockSymbol  - ", retrievedStock.stockSymbol)
-        const data = await fetchStockValueData(retrievedStock.stockSymbol);
-        console.log("Is there anything under data  - ", data)
+        const data = await fetchStockValueData(retrievedStocks.stockSymbol);
         const timeSeries = data['Time Series (Daily)'];
         
         if (timeSeries) {
@@ -77,7 +75,7 @@ const StockData = ({ retrievedStock }) => {
     };
 
     getData();
-  }, [retrievedStock]);
+  }, [retrievedStocks]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -93,7 +91,7 @@ const StockData = ({ retrievedStock }) => {
       {error && <p>Error: {error}</p>}
       {chartData && (
       <div>
-        <h2>{retrievedStock.stockName}, {retrievedStock.stockSymbol}</h2>
+        <h2>{retrievedStocks.stockName}, {retrievedStocks.stockSymbol}</h2>
         <div className="chart-container">
         <Line 
           data={chartData}

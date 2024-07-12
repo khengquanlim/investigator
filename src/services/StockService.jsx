@@ -26,8 +26,8 @@ export const fetchStockSymbol = async (textInput) => {
     const response = await axios.get(searchAlphaVantageURL, {
       params: {
         function: 'SYMBOL_SEARCH',
-        keywords: "tesco",
-        apikey: "demo",
+        keywords: textInput,
+        apikey: API_KEY,
       },
     });
     console.log("What is the response.data --- " , response.data );
@@ -50,8 +50,8 @@ export const fetchStockSuggestions = async (query) => {
     const response = await axios.get(searchAlphaVantageURL, {
       params: {
         function: 'SYMBOL_SEARCH',
-        keywords: "TESCO",
-        apikey: "demo",
+        keywords: query,
+        apikey: API_KEY,
       },
     });
     const matches = response.data.bestMatches.slice(0, 10);

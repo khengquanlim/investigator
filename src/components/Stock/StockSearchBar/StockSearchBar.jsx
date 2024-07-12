@@ -5,18 +5,19 @@ import { fetchStockSymbol } from '../../../services/StockService';
 const StockSearchBar = ({ onConfirm }) => {
   const [textInput, setTextInput] = useState('');
 
-  const handleSearch = async () => {
+  const handleAddStockData = async () => {
     try {
-      const retrievedStock = await fetchStockSymbol(textInput);
-      onConfirm(retrievedStock); 
+      const retrievedStocks = await fetchStockSymbol(textInput);
+      onConfirm(retrievedStocks); 
     } catch (error) {
-      console.error('Error fetching retrievedStock:', error);
+      console.error('Error fetching retrievedStocks:', error);
     }
   };
 
-  const handleSelectSuggestion = (retrievedStock) => {
-    setTextInput(retrievedStock);
-    handleSearch();
+  const handleSelectSuggestion = (suggestion) => {
+    setTextInput(suggestion['1. symbol']);    
+    onConfirm({ stockName: suggestion['2. name'], stockSymbol: suggestion['1. symbol'] });
+
   };
 
   return (
@@ -27,8 +28,8 @@ const StockSearchBar = ({ onConfirm }) => {
         onChange={(e) => setTextInput(e.target.value.toUpperCase())}
         placeholder="Enter stock symbol"
       />
-      <button onClick={handleSearch}>Search</button>
-      {/* {textInput && <AutoCompleteSuggestion query={textInput} onSelect={handleSelectSuggestion} />} */}
+      <button onClick={handleAddStockData}>Add</button>
+      {textInput && <AutoCompleteSuggestion query={textInput} onSelect={handleSelectSuggestion} />}
     </div>
   );
 };

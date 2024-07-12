@@ -5,6 +5,7 @@ import './AutoCompleteSuggestion.css';
 const AutoCompleteSuggestion = ({ query, onSelect }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [typingTimeout, setTypingTimeout] = useState(null);
+  const [timeoutActive, setTimeoutActive] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -27,9 +28,11 @@ const AutoCompleteSuggestion = ({ query, onSelect }) => {
         clearTimeout(typingTimeout);
       }
 
+      setTimeoutActive(true);
       setTypingTimeout(
         setTimeout(() => {
             fetchSuggestions(query);
+            setTimeoutActive(false);
         }, 2000)
       );
     } else {
@@ -45,13 +48,13 @@ const AutoCompleteSuggestion = ({ query, onSelect }) => {
   return (
     <div className="auto-complete-suggestion">
       {loading && <div>Loading...</div>}
-      {!loading && suggestions.length === 0 && query && (
+      {!loading && !timeoutActive && suggestions?.length === 0 && query && (
         <div className="no-results-message">No results found for "{query}"</div>
       )}
-      {!loading && suggestions.length > 0 && (
+      {!loading && suggestions?.length > 0 && (
         <ul className="suggestions-list">
           {suggestions.map((suggestion, index) => (
-            <li key={index} className="suggestion-item" onClick={() => onSelect(suggestion['1. symbol'])}>
+            <li key={index} className="suggestion-item" onClick={() => onSelect(suggestion)}>
               <span className="suggestion-name">{suggestion['2. name']}</span>
               <span className="suggestion-symbol">{suggestion['1. symbol']}</span>
             </li>
