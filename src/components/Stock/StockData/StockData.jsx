@@ -37,8 +37,7 @@ const StockData = ({ retrievedStocks }) => {
       setError(null);
       try {
         const data = await fetchStockValueData(retrievedStocks.stockSymbol);
-        const timeSeries = data[0]['Time Series (Daily)'];
-        // const timeSeries = data['Time Series (Daily)'];
+        const timeSeries = data['Time Series (Daily)'];
         
         if (timeSeries) {
           const labels = Object.keys(timeSeries).reverse();

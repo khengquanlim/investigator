@@ -1,4 +1,4 @@
-export const MockStockData = [
+export const MockStockData =
 {
     "Meta Data": {
       "1. Information": "Intraday (5min) open, high, low, close prices and volume",
@@ -711,4 +711,3 @@ export const MockStockData = [
       }
     }
   }
-]
