@@ -18,6 +18,7 @@ export const fetchStockValueData = async (symbol) => {
     if('Information' in response.data) {
       return MockStockData;
     }
+    console.log("response.data    ", response.data)
       return response.data;
     } catch (error) {
       console.error('Error at fetchStockValueData:', error.response ? error.response.data : error.message);

@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { fetchStockValueData } from '../../../services/StockService.jsx';
 import { Line } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
-
+import { createLineChartData, createCandlestickChartData } from '../StockUtils/StockUtils.jsx';
+import 'chartjs-adapter-date-fns';
 import './StockData.css';
 
 Chart.register(...registerables);
 
 const StockData = ({ retrievedStocks }) => {
-  const [chartData, setChartData] = useState(null);
+  const [lineChartData, setLineChartData] = useState(null);
+  const [candlestickChartData, setCandlestickChartData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -18,17 +20,39 @@ const StockData = ({ retrievedStocks }) => {
     scales: {
       x: {
         ticks: {
-          color: 'white',  
+          color: 'white',
         },
       },
       y: {
         ticks: {
-          color: 'white',  
+          color: 'white',
         },
       },
-    }
+    },
   };
-  
+
+  const candleStickOptions = {
+    maintainAspectRatio: false,
+    responsive: true,
+    scales: {
+      x: {
+        type: 'time',
+        time: {
+          unit: 'day',
+          tooltipFormat: 'MMM dd', 
+        },
+        ticks: {
+          color: 'white',
+        },
+      },
+      y: {
+        ticks: {
+          color: 'white',
+        },
+      },
+    },
+  };
+
   useEffect(() => {
     const getData = async () => {
       if (!retrievedStocks) return;
@@ -38,31 +62,13 @@ const StockData = ({ retrievedStocks }) => {
       try {
         const data = await fetchStockValueData(retrievedStocks.stockSymbol);
         const timeSeries = data['Time Series (Daily)'];
-        
-        if (timeSeries) {
-          const labels = Object.keys(timeSeries).reverse();
-          const highValues = labels.map(date => timeSeries[date]['2. high']);
-          const lowValues = labels.map(date => timeSeries[date]['3. low']);
 
-          setChartData({
-            labels,
-            datasets: [
-              {
-                label: 'High',
-                data: highValues,
-                borderColor: 'black',
-                borderWidth: 1,
-                fill: false,
-              },
-              {
-                label: 'Low',
-                data: lowValues,
-                borderColor: 'red',
-                borderWidth: 1,
-                fill: false,
-              },
-            ],
-          });
+        if (timeSeries) {
+          const lineData = createLineChartData(timeSeries);
+          const candlestickData = createCandlestickChartData(timeSeries);
+
+          setLineChartData(lineData);
+          setCandlestickChartData(candlestickData);
         } else {
           setError('Time Series data is not available.');
         }
@@ -86,19 +92,23 @@ const StockData = ({ retrievedStocks }) => {
 
   return (
     <div>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {chartData && (
-      <div>
-        <h2>{retrievedStocks.stockName}, {retrievedStocks.stockSymbol}</h2>
-        <div className="chart-container">
-        <Line 
-          data={chartData}
-          options={options}
-        />         
-        </div>
+      <h2>{retrievedStocks.stockName}, {retrievedStocks.stockSymbol}</h2>
+      <div className="chart-container">
+        {lineChartData && (
+          <Line 
+            data={lineChartData}
+            options={options}
+          />
+        )}
       </div>
-      )}
+      <div className="chart-container">
+        {candlestickChartData && (
+          <Line 
+            data={candlestickChartData}
+            options={candleStickOptions}
+          />
+        )}
+      </div>
     </div>
   );
 };

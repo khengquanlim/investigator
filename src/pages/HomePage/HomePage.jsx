@@ -31,14 +31,14 @@ const HomePage = () => {
         scrollToStock={handleScrollToStock}
         activeSection={activeSection}
       />
+      <div ref={stockRef} className="stock-content">
+        <StockPage />
+      </div>
       <div className="homepage-content">
         <div ref={feedRef}>
           <Feed />
         </div>
         <Sidebar />
-      </div>
-      <div ref={stockRef} className="stock-content">
-        <StockPage />
       </div>
     </div>
   );
