@@ -14,7 +14,7 @@ const StockData = ({ retrievedStocks }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const options = {
+  const lineChartOptions = {
     maintainAspectRatio: false,
     responsive: true,
     scales: {
@@ -31,7 +31,7 @@ const StockData = ({ retrievedStocks }) => {
     },
   };
 
-  const candleStickOptions = {
+  const candleStickChartOptions = {
     maintainAspectRatio: false,
     responsive: true,
     scales: {
@@ -96,7 +96,7 @@ const StockData = ({ retrievedStocks }) => {
       <div className="chart-container">
         {lineChartData && (
           <Line 
-            data={lineChartData}
+            data={lineChartOptions}
             options={options}
           />
         )}
@@ -105,7 +105,7 @@ const StockData = ({ retrievedStocks }) => {
         {candlestickChartData && (
           <Line 
             data={candlestickChartData}
-            options={candleStickOptions}
+            options={candleStickChartOptions}
           />
         )}
       </div>
