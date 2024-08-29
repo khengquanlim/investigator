@@ -2,56 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { fetchStockValueData } from '../../../services/StockService.jsx';
 import { Line } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
-import { createLineChartData, createCandlestickChartData } from '../StockUtils/StockUtils.jsx';
+import zoomPlugin from 'chartjs-plugin-zoom';
+import { createLineChartData, createCandlestickChartData, lineChartOptions, candleStickChartOptions } from '../StockUtils/StockUtils.jsx';
 import 'chartjs-adapter-date-fns';
 import './StockData.css';
 
-Chart.register(...registerables);
+Chart.register(...registerables, zoomPlugin);
 
 const StockData = ({ retrievedStocks }) => {
   const [lineChartData, setLineChartData] = useState(null);
   const [candlestickChartData, setCandlestickChartData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const lineChartOptions = {
-    maintainAspectRatio: false,
-    responsive: true,
-    scales: {
-      x: {
-        ticks: {
-          color: 'white',
-        },
-      },
-      y: {
-        ticks: {
-          color: 'white',
-        },
-      },
-    },
-  };
-
-  const candleStickChartOptions = {
-    maintainAspectRatio: false,
-    responsive: true,
-    scales: {
-      x: {
-        type: 'time',
-        time: {
-          unit: 'day',
-          tooltipFormat: 'MMM dd', 
-        },
-        ticks: {
-          color: 'white',
-        },
-      },
-      y: {
-        ticks: {
-          color: 'white',
-        },
-      },
-    },
-  };
 
   useEffect(() => {
     const getData = async () => {
@@ -95,17 +57,17 @@ const StockData = ({ retrievedStocks }) => {
       <h2>{retrievedStocks.stockName}, {retrievedStocks.stockSymbol}</h2>
       <div className="chart-container">
         {lineChartData && (
-          <Line 
+          <Line
             data={lineChartData}
-            options={lineChartOptions}
+            options={lineChartOptions(lineChartData)}
           />
         )}
       </div>
       <div className="chart-container">
         {candlestickChartData && (
-          <Line 
+          <Line
             data={candlestickChartData}
-            options={candleStickChartOptions}
+            options={candleStickChartOptions(candlestickChartData)}
           />
         )}
       </div>
