@@ -1,43 +1,68 @@
 import axios from 'axios';
-
+import { MockStockData } from '../data/MockStockData';
 const API_KEY = 'process.env.API_KEY';
 const API_KEY_BACKUP = 'process.env.API_KEY_BACKUP';
 const BASE_URL = 'https://www.alphavantage.co/query';
 
+const searchAlphaVantageURL = `${BASE_URL}/query`;
 export const fetchStockValueData = async (symbol) => {
   try {
-    const response = await axios.get(`${BASE_URL}/query`, {
+    const response = await axios.get(searchAlphaVantageURL, {
       params: {
         function: 'TIME_SERIES_DAILY',
         symbol: symbol,
         apikey: API_KEY,
       },
     });
-        return response.data;
+
+    if('Information' in response.data) {
+      return MockStockData;
+    }
+    console.log("response.data    ", response.data)
+      return response.data;
     } catch (error) {
-        console.error('Error fetching stock data:', error.response ? error.response.data : error.message);
-        throw error;
+      console.error('Error at fetchStockValueData:', error.response ? error.response.data : error.message);
+      // throw error;
+      return MockStockData;
     }
 };
 
 export const fetchStockSymbol = async (textInput) => {
-  const searchURL = `${BASE_URL}/query`;
   try {
-    const response = await axios.get(searchURL, {
+    const response = await axios.get(searchAlphaVantageURL, {
       params: {
         function: 'SYMBOL_SEARCH',
         keywords: textInput,
-        apikey: API_KEY_BACKUP,
+        apikey: API_KEY,
       },
     });
     if (response.data && response.data.bestMatches && response.data.bestMatches.length > 0) {
-      const symbol = response.data.bestMatches[0]['1. symbol'];
-      return symbol;
+      const stockSymbol = response.data.bestMatches[0]['1. symbol'];
+      const stockName = response.data.bestMatches[0]['2. name'];
+      return {stockName, stockSymbol};
     } else {
       throw new Error('No matching symbols found.');
     }
   } catch (error) {
-    console.error('Error fetching stock symbol:', error);
-    throw error;
+    const stockSymbol = 'IBM';
+    const stockName = 'IBM';
+    return {stockName, stockSymbol};
+    // throw error;
   }
-};
+}
+
+export const fetchStockSuggestions = async (query) => {
+  try {
+    const response = await axios.get(searchAlphaVantageURL, {
+      params: {
+        function: 'SYMBOL_SEARCH',
+        keywords: query,
+        apikey: API_KEY,
+      },
+    });
+    const matches = response.data.bestMatches.slice(0, 10);
+    return matches;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}

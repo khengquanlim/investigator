@@ -16,34 +16,4 @@ export const posts = [
       caption: 'Useful to update on the changes in website by adding more posts', 
       urls: [
       ] },
-    { id: 4, 
-      username: 'Test:', 
-      caption: 'To test the highlighting of each component', 
-      urls: [
-      ] },
-    { id: 5, 
-      username: 'Test:', 
-      caption: 'To test the highlighting of each component by using getBoundingClientRect', 
-      urls: [
-      ] },
-    { id: 6, 
-      username: 'Test:', 
-      caption: '1 more', 
-      urls: [
-      ] },
-    { id: 7, 
-      username: 'Test:', 
-      caption: 'To test the highlighting of each component', 
-      urls: [
-      ] },
-    { id: 8, 
-      username: 'Test:', 
-      caption: 'To test the highlighting of each component by using getBoundingClientRect', 
-      urls: [
-      ] },
-    { id: 9, 
-      username: 'Test:', 
-      caption: '1 more', 
-      urls: [
-      ] },
   ];
