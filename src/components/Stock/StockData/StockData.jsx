@@ -96,8 +96,8 @@ const StockData = ({ retrievedStocks }) => {
       <div className="chart-container">
         {lineChartData && (
           <Line 
-            data={lineChartOptions}
-            options={options}
+            data={lineChartData}
+            options={lineChartOptions}
           />
         )}
       </div>
