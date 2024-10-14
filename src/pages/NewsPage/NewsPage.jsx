@@ -1,8 +1,12 @@
 import News from "../../components/News/news";
+import Header from "../../components/Header/Header";
 
 const NewsPage = () => {
     return (
-        <News />
+        <div>
+            <Header />
+            <News />
+        </div>
     )
 }
 

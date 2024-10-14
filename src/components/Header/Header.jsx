@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faEnvelope, faBook } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,14 +7,25 @@ import './Header.css';
 
 const Header = ({ scrollToFeed, scrollToStock, activeSection }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleOnClickPageTab = (page) => {
     switch (page) {
       case 'feed':
-        scrollToFeed();
+        if (location.pathname === '/') {
+          scrollToFeed();
+        } else {
+          navigate('/');
+          setTimeout(scrollToFeed, 0);
+        }
         break;
       case 'stock':
-        scrollToStock();
+        if (location.pathname === '/') {
+          scrollToStock();
+        } else {
+          navigate('/');
+          setTimeout(scrollToStock, 0);
+        }
         break;
       case 'news':
         navigate('/news');
