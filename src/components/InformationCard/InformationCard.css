@@ -1,0 +1,20 @@
+.news-cards-container {
+    overflow-y: auto;
+  }
+
+.image-wrapper {
+    height: 20vh;
+    width: 100%;
+    position: relative; 
+    overflow: hidden;
+}
+
+.news-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}

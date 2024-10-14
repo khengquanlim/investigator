@@ -6,14 +6,14 @@ import StockPage from '../StockPage/StockPage.jsx';
 import './HomePage.css'; 
 
 const HomePage = () => {
-  const feedRef = useRef(null);
+  const homeRef = useRef(null);
   const stockRef = useRef(null);
-  const [activeSection, setActiveSection] = useState('feed');
+  const [activeSection, setActiveSection] = useState('home');
 
-  const handleScrollToFeed = () => {
-    if (feedRef.current) {
-      feedRef.current.scrollIntoView({ behavior: 'smooth' });
-      setActiveSection('feed');
+  const handleScrollToHome = () => {
+    if (homeRef.current) {
+      homeRef.current.scrollIntoView({ behavior: 'smooth' });
+      setActiveSection('home');
     }
   };
 
@@ -27,7 +27,7 @@ const HomePage = () => {
   return (
     <div className="homepage">
       <Header
-        scrollToFeed={handleScrollToFeed}
+        scrollToHome={handleScrollToHome}
         scrollToStock={handleScrollToStock}
         activeSection={activeSection}
       />
@@ -35,7 +35,7 @@ const HomePage = () => {
         <StockPage />
       </div>
       <div className="homepage-content">
-        <div ref={feedRef}>
+        <div ref={homeRef}>
           <Feed />
         </div>
         <Sidebar />
