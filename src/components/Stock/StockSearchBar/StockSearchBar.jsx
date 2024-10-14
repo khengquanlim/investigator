@@ -29,7 +29,7 @@ const StockSearchBar = ({ onConfirm }) => {
         placeholder="Enter stock symbol"
       />
       <button onClick={handleAddStockData}>Add</button>
-      {/* {textInput && <AutoCompleteSuggestion query={textInput} onSelect={handleSelectSuggestion} />} */}
+      {textInput && <AutoCompleteSuggestion query={textInput} onSelect={handleSelectSuggestion} />}
     </div>
   );
 };
