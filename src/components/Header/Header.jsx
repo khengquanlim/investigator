@@ -5,18 +5,18 @@ import { faHome, faEnvelope, faBook } from '@fortawesome/free-solid-svg-icons';
 
 import './Header.css';
 
-const Header = ({ scrollToFeed, scrollToStock, activeSection }) => {
+const Header = ({ scrollToHome, scrollToStock, activeSection }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleOnClickPageTab = (page) => {
     switch (page) {
-      case 'feed':
+      case 'home':
         if (location.pathname === '/') {
-          scrollToFeed();
+          scrollToHome();
         } else {
           navigate('/');
-          setTimeout(scrollToFeed, 0);
+          setTimeout(scrollToHome, 0);
         }
         break;
       case 'stock':
@@ -40,10 +40,10 @@ const Header = ({ scrollToFeed, scrollToStock, activeSection }) => {
       <h1>Welcome to Invest-igator!</h1>
       <div className="header-icons">
         <div
-          className={`icon-spacing ${activeSection === 'feed' ? 'active' : ''}`}
-          onClick={() => handleOnClickPageTab('feed')}
+          className={`icon-spacing ${activeSection === 'home' ? 'active' : ''}`}
+          onClick={() => handleOnClickPageTab('home')}
         >
-          <FontAwesomeIcon icon={faHome} className="feed icon" /> Feed
+          <FontAwesomeIcon icon={faHome} className="home icon" /> Home
         </div>
         <div
           className={`icon-spacing ${activeSection === 'stock' ? 'active' : ''}`}
