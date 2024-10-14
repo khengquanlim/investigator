@@ -12,7 +12,6 @@ const News = () => {
         const retrieveNewsData = async () => {
             const ticker = 'AAPL';
             const retrievedData = await fetchNewsData();
-            console.log(retrievedData);
             setNewsDataRetrieved(retrievedData.feed);
         }
         retrieveNewsData();
