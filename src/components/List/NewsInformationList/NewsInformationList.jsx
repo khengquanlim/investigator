@@ -1,10 +1,10 @@
 import { Card, Button } from "react-bootstrap";
-import './InformationCard.css';
+import './NewsInformationList.css';
 
-const InformationCard = ({title, bodyText, image, source, sourceDomain, newsUrl}) => {
+const NewsInformationList = ({title, bodyText, image, source, sourceDomain, newsUrl}) => {
 
     return (
-        <div className="news-cards-container">
+        <div className="news-list-container">
             <Card border="light" style={{ backgroundColor:"gray", marginTop: '1rem' }} className="news-card">
             <Card.Body>
                 <div className="image-wrapper">
@@ -27,4 +27,4 @@ const InformationCard = ({title, bodyText, image, source, sourceDomain, newsUrl}
 
 }
 
-export default InformationCard;
+export default NewsInformationList;
