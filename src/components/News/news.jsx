@@ -23,7 +23,23 @@ const newsData = [
         ],
         url : "https://www.benzinga.com/news/24/10/41306527/apples-low-cost-vision-pro-could-hit-the-shelves-next-year-everything-you-need-to-know-about-iphone"
 
-    }
+    },
+    {
+        authors: ['test'],
+        banner_image: "https://cdn.benzinga.com/files/images/story/2024/10/13/Apple-Vision-Pro.jpeg?width=1200&height=800&fit=crop",
+        category_within_source : "News",
+        source : "test",
+        source_domain : "www.test.com",
+        title : "Test PLNT ",
+        summary : "Apple Inc. AAPL is reportedly ramping up its efforts to compete with Meta Platforms Inc. META. The iPhone maker's discounted version of the first-generation mixed-reality headset, Vision Pro, could be ready by next year.",
+        time_published : "20241014T020443",
+        topics : [
+            {relevance_score:  "1.0",
+            topic: "Technology"}
+        ],
+        url : "https://www.benzinga.com/news/24/10/41306527/apples-low-cost-vision-pro-could-hit-the-shelves-next-year-everything-you-need-to-know-about-iphone"
+
+    },
 ]
 const mockStockDataList = [
     {
@@ -41,18 +57,14 @@ const News = () => {
     const [isFirstState, setIsFirstState] = useState(true);
     const [activeStock, setActiveStock] = useState(null); 
 
-    const [testNewsData, setTestNewsData] = useState(null);
-    const [selectedNews, setSelectedNews] = useState(newsData[0]);
-
     const [textInput, setTextInput] = useState('');
 
     const retrieveNewsData = async () => {
         console.log(activeStock)
-        console.log(mockStockDataList[activeStock])
+        console.log(selectedStocks[activeStock])
         // if (activeStock !== null && selectedStocks[activeStock]) {
-        if (activeStock !== null && mockStockDataList[activeStock]) {
-            const stockSymbol = mockStockDataList[activeStock].stockSymbol;
-            console.log(stockSymbol);
+        if (activeStock !== null && selectedStocks[activeStock]) {
+            const stockSymbol = selectedStocks[activeStock].stockSymbol;
             const retrievedData = await fetchNewsData(stockSymbol);
             console.log(retrievedData);
             //for testing, use mock data if hit api limit 
@@ -88,7 +100,7 @@ const News = () => {
     return (
         <Container fluid>
             <div className="search-bar">
-            {/* <StockSearchBar onConfirm={handleConfirm}/> */}
+            <StockSearchBar onConfirm={handleConfirm}/>
             {/* {textInput && <AutoCompleteSuggestion query={textInput} onSelect={handleSelectSuggestion} />} */}
             </div>
             <Row>
@@ -96,7 +108,7 @@ const News = () => {
                     <RetrievedSymbolList 
                         // selectedStocks={selectedStocks}
                         // use mock data if api limit
-                        selectedStocks={mockStockDataList} 
+                        selectedStocks={selectedStocks} 
                         setActiveStock={setActiveStock}
                         activeStock={activeStock}
                     />
