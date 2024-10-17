@@ -25,30 +25,49 @@ const newsData = [
 
     }
 ]
+const mockStockDataList = [
+    {
+        stockName: "Apple",
+        stockSymbol: "AAPL"
+    },
+    {
+        stockName: "Planet Fitness",
+        stockSymbol: "PLNT"
+    },
+]
 const News = () => {
     const [newsDataRetrieved, setNewsDataRetrieved] = useState([]);
     const [selectedStocks, setSelectedStocks] = useState([]);
     const [isFirstState, setIsFirstState] = useState(true);
+    const [activeStock, setActiveStock] = useState(null); 
 
     const [testNewsData, setTestNewsData] = useState(null);
     const [selectedNews, setSelectedNews] = useState(newsData[0]);
 
     const [textInput, setTextInput] = useState('');
+
     const retrieveNewsData = async () => {
-        // const retrievedData = await fetchNewsData(textInput);
-        // console.log(retrievedData)
-        // setNewsDataRetrieved(retrievedData.feed);
-        setTestNewsData(newsData);
-    }
-    useEffect(() => {
-        const retrieveStockNewsData = async () => {
-            const retrievedData = await fetchNewsData(textInput);
+        console.log(activeStock)
+        console.log(mockStockDataList[activeStock])
+        // if (activeStock !== null && selectedStocks[activeStock]) {
+        if (activeStock !== null && mockStockDataList[activeStock]) {
+            const stockSymbol = mockStockDataList[activeStock].stockSymbol;
+            console.log(stockSymbol);
+            const retrievedData = await fetchNewsData(stockSymbol);
             console.log(retrievedData);
-            setNewsDataRetrieved(retrievedData.feed);
-            setTestNewsData(newsData);
+            //for testing, use mock data if hit api limit 
+            if(retrievedData.Information) {
+                setNewsDataRetrieved(newsData); 
+                console.log(newsDataRetrieved);
+            } else {
+                setNewsDataRetrieved(retrievedData.feed || []); 
+            }
         }
-        retrieveStockNewsData();
-    }, [selectedStocks]);
+    };
+
+    useEffect(() => {
+        retrieveNewsData();
+    }, [activeStock, selectedStocks]);
     
     const handleConfirm = (retrievedStocks) => {
         setIsFirstState(false);
@@ -69,28 +88,37 @@ const News = () => {
     return (
         <Container fluid>
             <div className="search-bar">
-                <StockSearchBar onConfirm={handleConfirm}/>
+            {/* <StockSearchBar onConfirm={handleConfirm}/> */}
             {/* {textInput && <AutoCompleteSuggestion query={textInput} onSelect={handleSelectSuggestion} />} */}
             </div>
-            { newsDataRetrieved ? 
             <Row>
                 <Col sm={3} className="news-list-column">
-                    <RetrievedSymbolList selectedStocks={selectedStocks}/>
+                    <RetrievedSymbolList 
+                        // selectedStocks={selectedStocks}
+                        // use mock data if api limit
+                        selectedStocks={mockStockDataList} 
+                        setActiveStock={setActiveStock}
+                        activeStock={activeStock}
+                    />
                 </Col>
                 <Col sm={9} className="news-list-column">
-                    {newsDataRetrieved.map((newsItem, index) => (
-                        <NewsInformationList
-                            title={newsItem.title}
-                            bodyText={newsItem.summary}
-                            source={newsItem.source}
-                            sourceDomain={newsItem.source_domain}
-                            image={newsItem.banner_image}
-                            newsUrl={newsItem.url}
-                        />
-                    ))}
+                    {newsDataRetrieved.length > 0 ? (
+                        newsDataRetrieved.map((newsItem, index) => (
+                            <NewsInformationList
+                                key={index}
+                                title={newsItem.title}
+                                bodyText={newsItem.summary}
+                                source={newsItem.source}
+                                sourceDomain={newsItem.source_domain}
+                                image={newsItem.banner_image}
+                                newsUrl={newsItem.url}
+                            />
+                        ))
+                    ) : (
+                        <p>No news data available for the selected stock.</p>
+                    )}
                 </Col>
-            </Row> : "Unable to retrieve news data currently"
-                        }
+            </Row>
         </Container>
     )
 }
